@@ -2,6 +2,7 @@
 // limit random position so it will always be on screen
 // make balls move
 // change cursor
+// make win and lose functions in render
 
 
 const l = Logic()

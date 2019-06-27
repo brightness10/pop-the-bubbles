@@ -1,7 +1,7 @@
 const Logic = function(){
     
     let level = 1;
-    let timer
+    let interval
     
     const decrementTime = function(leftInSec){
         const mins = Math.floor(leftInSec / 60)
@@ -13,16 +13,18 @@ const Logic = function(){
         let timeLeft = 10000 + 1000 * level
         let leftInSec = timeLeft / 1000;
         decrementTime(leftInSec)
-        setInterval(function(){
+        interval = setInterval(function(){
             leftInSec--
             decrementTime(leftInSec)
+            if(!leftInSec){
+                alert('lost')
+            }
         }, 1000)
-        return setTimeout(function(){alert('lost')}, timeLeft)
     }
 
     const startLevel = function(){
         r.renderLevel(level)
-        timer = startTimer()
+        startTimer()
     }
 
     const popBall = function(ball){
@@ -32,8 +34,8 @@ const Logic = function(){
 
     const checkWin = function(){
         if(!($('.ball').length)){
-            clearTimeout(timer)
             alert('winner')
+            clearInterval(interval)
             level++
             startLevel()
         }
