@@ -19,13 +19,24 @@ const Renderer = function(){
         return $ball
     }
 
+    const determineSize = function($ball){
+        const height = $ball.css('top').replace('%', '')
+        let size = 10 + height / 2
+        return size + 'px'
+    }
+
+    const sizeBall = function($ball){
+        $ball.css('font-size', determineSize($ball))        
+        return $ball        
+    }
+
     const createBalls = function(level){
         for (let i = 1; i < 5 + level; i++) {
         let $ball = $(document.createElement('i'));
             $ball.addClass('fas fa-bowling-ball ball')
             $ball.css('color', `rgb(${randomNum(0,256)},${randomNum(0,256)},${randomNum(0,256)})`)
             $ball = randomPosition($ball)
-            // random size ball
+            $ball = sizeBall($ball)
             $('#field').append($ball);
         }
     }
