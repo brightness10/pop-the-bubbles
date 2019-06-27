@@ -10,29 +10,12 @@
 }
 
 header{
-    background-color: yellow;
     flex-basis: 15vh;
-}
-
-#field{
-    position: relative;
-    background-color: green;
-    flex-basis: 70vh;
-}
-
-.ball {
-    text-shadow: 0 0 5px white;
-    position: absolute;
-}
-
-#start-btn {
-    justify-self: center;
-    align-self: center;
-    padding: 1rem;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(52, 73, 94,1.0);
+    color: white;
 }
 
 .heading{
@@ -43,10 +26,66 @@ header{
     // color: white;
 }
 
+#field{
+    position: relative;
+    background-color: rgba(44, 62, 80,1.0);
+    flex-basis: 85vh;
+    cursor: crosshair;
+    display: flex;
+}
+
+.ball {
+    text-shadow: 0 0 5px white;
+    position: absolute;
+}
+
+#start-btn {
+    // justify-self: center;
+    align-self: center;
+    padding: 1rem;
+    
+    
+}
+
 .modal{
+    padding: 1rem;
+    height: 20vh;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0,0,0,.6);
+    cursor: initial;
+
+    &.lost{
+        background-color: rgba(231, 76, 60,1.0);
+    }
+    
+    &.won{
+        background-color: rgba(243, 156, 18,1.0);
+    }
+
+    button{
+        padding: 0.3rem;
+        display: block;
+        width: 100%;
+    }
+}
+
+#test{
+    height: 20vh;
+    position: relative;
+}
+
+.test-ball{
+    font-size: 20px;
+    top: calc(100% - 20px);
+    position: absolute;
+    z-index: 10;
 }

@@ -5,6 +5,7 @@ const Logic = function(){
     
     const loserUser = function(){
         clearInterval(interval)
+        $('#container').off('mouseenter', '.ball')
         r.userLost()
     }
 
@@ -43,10 +44,10 @@ const Logic = function(){
 
     const checkWin = function(){
         if(!($('.ball').length)){
-            alert('winner')
             clearInterval(interval)
+            r.userWon()
             level++
-            startLevel()
+            // startLevel()
         }
     }
 
