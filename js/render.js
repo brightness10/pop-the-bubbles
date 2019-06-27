@@ -26,19 +26,14 @@ const Renderer = function(){
         }
     }
 
-    const renderTimer = function(timeLeft){
-        const leftInSec = timeLeft / 1000;
-        const mins = Math.floor(leftInSec / 60)
-        const secs = leftInSec % 60
-        $('#timer').text('hello')
-        
-        console.log(secs)
+    const renderTimer = function(mins, secs){
+        $('#timer').empty() // erase this line once #timer is placed inside #container
+        $('#timer').text(`${mins}:${secs}`)
     }
 
-    const renderLevel = function(level, timeLeft){
+    const renderLevel = function(level){
         $('#container').empty();
         createBalls(level)
-        renderTimer(timeLeft)
     }
 
     const remove = function(ball){
@@ -48,6 +43,7 @@ const Renderer = function(){
 
     return {
         renderLevel,
-        remove
+        remove,
+        renderTimer
     }
 }

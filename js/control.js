@@ -1,6 +1,7 @@
 /// TO DO
 // limit random position so it will always be on screen
 // make balls move
+// change cursor
 
 
 const l = Logic()
