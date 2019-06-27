@@ -1,17 +1,21 @@
 const Renderer = function(){
+    const $con = $('#container')
 
-    const randomColor = function(){
-        const values = '0123456789abcdef';
-        let color = '#'
-        for(let i = 0; i < 6; i++){
-            color += values[Math.floor(Math.random() * 16)]
-        }
-        return color
+    const userLost = function(){
+        $('#field').append(`<div class="modal">
+        <h3>You've Lost!</h3>
+        <button id="retry-btn">Retry Level</button>
+        <button id="restart-btn">Restart Game</button>
+        </div>`)
+    }
+
+    const randomNum = function(min,max){
+        return min + Math.floor(Math.random() * (max - min + 1))
     }
 
     const randomPosition = function($ball){
-        $ball.css('top', `${Math.floor(Math.random() * 101)}%`)
-        $ball.css('left', `${Math.floor(Math.random() * 101)}%`)
+        $ball.css('top', `${randomNum(0,95)}%`)
+        $ball.css('left', `${randomNum(0,95)}%`)
         return $ball
     }
 
@@ -19,11 +23,15 @@ const Renderer = function(){
         for (let i = 1; i < 5 + level; i++) {
         let $ball = $(document.createElement('i'));
             $ball.addClass('fas fa-bowling-ball ball')
-            $ball.css('color', randomColor())
+            $ball.css('color', `rgb(${randomNum(0,256)},${randomNum(0,256)},${randomNum(0,256)})`)
             $ball = randomPosition($ball)
             // random size ball
-            $('#container').append($ball);
+            $('#field').append($ball);
         }
+    }
+
+    const colorTimer = function(){
+        $('#timer').css('color', '#e74c3c')
     }
 
     const renderTimer = function(mins, secs){
@@ -31,9 +39,25 @@ const Renderer = function(){
         $('#timer').text(`${mins}:${secs}`)
     }
 
+    const ballsLeft = function(){
+        $('#balls-left').remove()
+        $('header').append(`<div id="balls-left">${$('.ball').length}</div>`)
+    }
+
+    const renderHeader = function(level){
+        $('header').remove()
+        $con.prepend(`<header>
+        <h1 class="heading">Level ${level}</h1>
+        <div id="timer"></div>
+        </header>`)
+        ballsLeft()
+    }
+
     const renderLevel = function(level){
-        $('#container').empty();
+        $con.empty();
+        $con.append('<div id="field"></div>')
         createBalls(level)
+        renderHeader(level)
     }
 
     const remove = function(ball){
@@ -44,6 +68,9 @@ const Renderer = function(){
     return {
         renderLevel,
         remove,
-        renderTimer
+        renderTimer,
+        ballsLeft,
+        userLost,
+        colorTimer
     }
 }
