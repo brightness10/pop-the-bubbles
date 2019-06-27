@@ -1,6 +1,11 @@
 const Renderer = function(){
     const $con = $('#container')
 
+    const parseNum = function(variable){
+        variable = Number(variable.replace('px', ''))
+        return variable
+    }
+
     const userLost = function(){
         $('#field').append(`<div class="modal lost">
         <h3>You've Lost!</h3>
@@ -35,33 +40,46 @@ const Renderer = function(){
         return $ball        
     }
 
-    const controlMovement = function($ball, counter){
-        $ball.css('left', counter) // setting left as counter
-        return counter++
+    // const controlMovement = function($ball, counter){
+    //     $ball.css('left', counter) // setting left as counter
+    //     return counter++
         
-    }
+    // }
 
     const moveBall = function($ball, direction){
         let distance = $ball.css(direction) // current distance
-        distance = Number(distance.replace('px', '')) // return only the number
+        distance = parseNum(distance) // return only the number
+        let flag = randomNum(0,1)
         setInterval(function(){
-            $ball.css('left', distance) // setting left as distance
-            distance++
+            $ball.css(direction, distance) // setting distance as left value
+            let disToWall
+            (direction === 'left') ?  disToWall = $('#field').css('width') : (direction === 'top') ?  disToWall = $('#field').css('height'): console.log('hi')
+            disToWall = parseNum(disToWall)
             let size = $ball.css('font-size') // grab ball size
-            size = Number(size.replace('px', '')) // return only number from size
-        }, 10)
+            size = parseNum(size) // return only number from size
+                if(flag){
+                    distance++
+                    if(distance >= disToWall - size){
+                        flag = false
+                    }
+                }else{
+                    distance--
+                    if(distance < 0)
+                    flag = true
+                }
+        }, randomNum(1,10))
     }
 
     const createBalls = function(level){
         for (let i = 1; i < 5 + level; i++) {
-        let $ball = $(document.createElement('i'));
+            let $ball = $(document.createElement('i'));
             $ball.addClass('fas fa-bowling-ball ball')
             $ball.css({'color': `rgb(${randomNum(0,256)},${randomNum(0,256)},${randomNum(0,256)})`, 'opacity': randomNum(3, 10) / 10})
             $ball = randomPosition($ball)
             $ball = sizeBall($ball)
             $('#field').append($ball);
             moveBall($ball, 'left')
-            // moveBall($ball, 'top')
+            moveBall($ball, 'top')
         }
     }
 

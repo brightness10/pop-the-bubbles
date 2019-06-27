@@ -1,10 +1,6 @@
 /// TO DO
-// move balls
-// bounce balls
-// start movement in random direction
-// two digits in timer
 // limit random position so it will always be on screen
-
+// change function to arrow functions
 
 const l = Logic()
 const r = Renderer()

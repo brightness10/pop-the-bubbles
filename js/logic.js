@@ -2,10 +2,13 @@ const Logic = function(){
     
     let level = 1;
     let interval
+    const stopPopListener = function(){
+        $('#container').off('mouseenter', '.ball')
+    }
     
     const loserUser = function(){
         clearInterval(interval)
-        $('#container').off('mouseenter', '.ball')
+        stopPopListener()
         r.userLost()
     }
 
@@ -43,17 +46,17 @@ const Logic = function(){
     }
 
     const checkWin = function(){
+        console.log(level)
         if(!($('.ball').length)){
             clearInterval(interval)
+            stopPopListener()
             r.userWon()
             level++
-            // startLevel()
         }
     }
 
     return {
         startLevel,
-        level,
         popBall
     }
 }
